@@ -2,6 +2,7 @@ import { eachDayOfInterval } from "date-fns";
 import supabase from "./supabase";
 import { notFound } from "next/navigation";
 
+// GET
 export async function getCabin(id) {
   const { data, error } = await supabase
     .from("cabins")
@@ -60,7 +61,7 @@ export async function getGuest(email) {
 export async function getBooking(id) {
   const { data, error, count } = await supabase
     .from("bookings")
-    .select("*")
+    .select("*, cabins(name)")
     .eq("id", id)
     .single();
 
@@ -77,7 +78,7 @@ export async function getBookings(guestId) {
     .from("bookings")
     // We actually also need data on the cabins as well. But let's ONLY take the data that we actually need, in order to reduce downloaded data.
     .select(
-      "id, created_at, startDate, endDate, numNights, numGuests, totalPrice, guestId, cabinId, cabins(name, image)"
+      "id, created_at, startDate, endDate, numNights, numGuests, totalPrice, guestId, cabinId, hasBreakfast, cabins(name, image)"
     )
     .eq("guestId", guestId)
     .order("startDate");
@@ -143,7 +144,6 @@ export async function getCountries() {
   }
 }
 
-/////////////
 // CREATE
 
 export async function createGuest(newGuest) {
@@ -173,7 +173,6 @@ export async function createBooking(newBooking) {
   return data;
 }
 
-/////////////
 // UPDATE
 
 // The updatedFields is an object which should ONLY contain the updated data
@@ -207,7 +206,6 @@ export async function updateBooking(id, updatedFields) {
   return data;
 }
 
-/////////////
 // DELETE
 
 export async function deleteBooking(id) {

@@ -1,6 +1,7 @@
 import { UsersIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Link from "next/link";
+import Price from "./Price";
 
 function CabinCard({ cabin }) {
   const { id, name, maxCapacity, price, discount, image } = cabin;
@@ -28,8 +29,8 @@ function CabinCard({ cabin }) {
               For up to <span className="font-bold">{maxCapacity}</span> guests
             </p>
           </div>
-
-          <p className="flex gap-3 justify-end items-baseline">
+          <Price cabinId={id} />
+          {/* <p className="flex gap-3 justify-end items-baseline">
             {discount > 0 ? (
               <>
                 <span className="text-3xl font-[350]">
@@ -43,7 +44,7 @@ function CabinCard({ cabin }) {
               <span className="text-3xl font-[350]">￥{price}</span>
             )}
             <span className="text-primary-200">/ night</span>
-          </p>
+          </p> */}
         </div>
 
         <div className="bg-primary-950 border-t border-t-primary-800 text-right">
