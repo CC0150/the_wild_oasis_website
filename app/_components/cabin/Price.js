@@ -4,7 +4,7 @@ async function Price({ cabinId }) {
   const { price, discount } = await getCabinPrice(cabinId);
 
   return (
-    <p className="mt-12 text-3xl flex gap-3 items-baseline justify-end">
+    <p className="flex gap-3 items-baseline justify-end">
       {discount > 0 ? (
         <>
           <span className="text-3xl font-[350]">￥{price - discount}</span>
